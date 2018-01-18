@@ -106,7 +106,7 @@ defmodule AWS.Request.Internal do
   """
   def canonical_header({name, value}) do
     name = String.downcase(name) |> String.strip
-    value = String.strip(value)
+    value = String.strip(to_string(value))
     name <> ":" <> value <> "\n"
   end
 
