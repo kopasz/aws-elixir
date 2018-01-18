@@ -18,7 +18,8 @@ Listing Amazon Kinesis streams. Start a console with `iex -S mix`:
 iex> client = %AWS.Client{access_key_id: "<access-key-id>",
                      secret_access_key: "<secret-access-key>",
                      region: "us-east-1",
-                     endpoint: "amazonaws.com"}
+                     endpoint: "amazonaws.com",
+                     api_version: "2012-06-01"}
 
 iex> {:ok, result, resp} = AWS.Kinesis.list_streams(client, %{})
 

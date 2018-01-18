@@ -1338,7 +1338,9 @@ defmodule AWS.Glacier do
     host = get_host("glacier", client)
     url = get_url(host, url, client)
     headers = Enum.concat([{"Host", host},
-                           {"Content-Type", "application/x-amz-json-1.1"}],
+                           {"Content-Type", "application/x-amz-json-1.1"},
+                           {"x-amz-glacier-version", client.api_version},
+                           ],
                           headers)
     payload = encode_payload(input)
     headers = AWS.Request.sign_v4(client, method, url, headers, payload)

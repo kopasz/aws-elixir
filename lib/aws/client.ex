@@ -9,5 +9,6 @@ defmodule AWS.Client do
             endpoint: nil,
             service: nil,
             proto: "https",
-            port: "443"
+            port: "443",
+            api_version: nil
 end
