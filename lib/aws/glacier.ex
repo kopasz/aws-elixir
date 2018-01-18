@@ -1232,9 +1232,8 @@ defmodule AWS.Glacier do
   Archive](http://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html)
   in the *Amazon Glacier Developer Guide*.
   """
-  def upload_archive(client, account_id, vault_name, input, options \\ []) do
+  def upload_archive(client, account_id, vault_name, input, headers, options \\ []) do
     url = "/#{URI.encode(account_id)}/vaults/#{URI.encode(vault_name)}/archives"
-    headers = []
     if Dict.has_key?(input, "archiveDescription") do
       headers = [{"x-amz-archive-description", input["archiveDescription"]}|headers]
       input = Dict.delete(input, "archiveDescription")
