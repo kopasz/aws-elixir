@@ -1234,29 +1234,7 @@ defmodule AWS.Glacier do
   """
   def upload_archive(client, account_id, vault_name, input, headers, options \\ []) do
     url = "/#{URI.encode(account_id)}/vaults/#{URI.encode(vault_name)}/archives"
-    if Dict.has_key?(input, "archiveDescription") do
-      headers = [{"x-amz-archive-description", input["archiveDescription"]}|headers]
-      input = Dict.delete(input, "archiveDescription")
-    end
-    if Dict.has_key?(input, "checksum") do
-      headers = [{"x-amz-sha256-tree-hash", input["checksum"]}|headers]
-      input = Dict.delete(input, "checksum")
-    end
-    case request(client, :post, url, headers, input, options, 201) do
-      {:ok, body, response} ->
-        if !is_nil(response.headers["x-amz-archive-id"]) do
-          body = %{body | "archiveId" => response.headers["x-amz-archive-id"]}
-        end
-        if !is_nil(response.headers["x-amz-sha256-tree-hash"]) do
-          body = %{body | "checksum" => response.headers["x-amz-sha256-tree-hash"]}
-        end
-        if !is_nil(response.headers["Location"]) do
-          body = %{body | "location" => response.headers["Location"]}
-        end
-        {:ok, body, response}
-      result ->
-        result
-    end
+    request(client, :post, url, headers, input, options, 201)
   end
 
   @doc """
