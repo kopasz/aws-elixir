@@ -1342,9 +1342,8 @@ defmodule AWS.Glacier do
                            {"x-amz-glacier-version", client.api_version},
                            ],
                           headers)
-    payload = encode_payload(input)
-    headers = AWS.Request.sign_v4(client, method, url, headers, payload)
-    perform_request(method, url, payload, headers, options, success_status_code)
+    headers = AWS.Request.sign_v4(client, method, url, headers, input)
+    perform_request(method, url, input, headers, options, success_status_code)
   end
 
   defp perform_request(method, url, payload, headers, options, nil) do
